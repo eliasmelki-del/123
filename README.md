@@ -1,40 +1,115 @@
 # PawRide Mobile (Android + iOS)
 
-This repository now contains a cross-platform React Native app using Expo for building both Android and iOS versions of a pet transportation platform.
+This project is a **cross-platform mobile app** built with **React Native + Expo + TypeScript** so one codebase can ship to both Android and iOS.
 
-## What is included
+## What to use to assemble and run the app
 
-- Expo + TypeScript mobile app scaffold
-- Landing screen with product framing for pet transportation
-- Reusable UI components for feature and ride option cards
-- Shared types for ride options
-- App configuration for Android package and iOS bundle ID
+Use this stack:
 
-## Prerequisites
+- **Node.js 20 LTS** (runtime)
+- **npm 10+** (package manager)
+- **Expo SDK 51** (React Native framework/tooling)
+- **EAS CLI** (cloud builds and store-ready binaries)
+- **Android Studio** (Android emulator + SDK)
+- **Xcode** (iOS simulator/build tooling on macOS)
 
-- Node.js 18+
-- npm 9+
-- Expo CLI (optional, can use `npx expo`)
+## Included in this repo
 
-## Run locally
+- Expo + TypeScript app scaffold
+- Home screen with PawRide product messaging
+- Reusable components (`FeatureCard`, `RideOptionCard`)
+- Shared ride option types/data
+- Expo config for Android/iOS identifiers
+- EAS build profile config
+
+## 1) Install prerequisites
+
+### macOS (for iOS and Android)
+
+1. Install **Node.js 20 LTS**
+2. Install **Watchman**
+3. Install **Xcode** from the App Store (for iOS simulator)
+4. Install **Android Studio** and Android SDK/tools
+
+### Windows/Linux (Android only)
+
+1. Install **Node.js 20 LTS**
+2. Install **Android Studio** and Android SDK/tools
+
+## 2) Install dependencies
 
 ```bash
 npm install
+```
+
+If your environment blocks npm registry access, use your org-approved registry mirror and retry.
+
+## 3) Run the app in development
+
+```bash
 npm run start
 ```
 
-Then open:
-- Android emulator/device with `a`
-- iOS simulator (macOS) with `i`
+Then from Expo terminal:
 
-## Build targets
+- Press **a** to open Android emulator
+- Press **i** to open iOS simulator (macOS only)
+- Press **w** for web preview
 
-- Android: `npm run android`
-- iOS: `npm run ios`
+## 4) Build native binaries
 
-## Suggested next steps
+### Local native folders (optional)
 
-1. Add authentication and onboarding (owner/driver flows)
-2. Integrate maps and real-time tracking
-3. Connect a backend (rides, payments, driver matching)
-4. Add admin web panel and analytics
+```bash
+npm run prebuild
+```
+
+This generates `android/` and `ios/` directories if you need custom native edits.
+
+### Cloud builds with EAS (recommended)
+
+```bash
+npm run eas:build:android
+npm run eas:build:ios
+```
+
+You need to run `eas login` first.
+
+## 5) Minimum environment variables
+
+Copy and fill:
+
+```bash
+cp .env.example .env
+```
+
+Set API URL and map key for your backend/tracking integration.
+
+## 6) Architecture to make this a working product
+
+- **Mobile app (this repo)**: booking, tracking, profiles
+- **Backend API**: auth, rides, matching, pricing, payments
+- **Realtime service**: driver location + trip status updates
+- **Payment provider**: Stripe/Braintree
+- **Maps provider**: Google Maps or Mapbox
+
+## Useful scripts
+
+- `npm run start` – Expo dev server
+- `npm run android` – run Android app
+- `npm run ios` – run iOS app
+- `npm run web` – web preview
+- `npm run prebuild` – generate native folders
+- `npm run doctor` – Expo diagnostics
+- `npm run typecheck` – TypeScript checks
+- `npm run eas:build:android` – Android cloud build
+- `npm run eas:build:ios` – iOS cloud build
+
+## Next implementation milestones
+
+1. Owner/driver auth and onboarding
+2. Pet profile CRUD + booking flow
+3. Maps, routing, live driver tracking
+4. Ride lifecycle states and notifications
+5. Payments and receipts
+6. Admin panel and support workflows
