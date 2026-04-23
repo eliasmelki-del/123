@@ -75,6 +75,38 @@ npm run eas:build:ios
 
 You need to run `eas login` first.
 
+
+## Where to test and build for Android
+
+### Test options (fastest to production confidence)
+
+1. **Expo Go on a physical Android phone**
+   - Good for quick UI and basic flow testing
+   - Run `npm run start`, then scan the QR in Expo Go
+
+2. **Android Studio Emulator (local)**
+   - Good for repeatable device testing
+   - Create a Pixel emulator in Android Studio AVD Manager
+   - Run `npm run android`
+
+3. **Internal distribution APK via EAS Build (team testing)**
+   - Best for QA/stakeholder testing without local setup
+   - Run `npm run eas:build:android`
+   - Share the generated install link/APK with testers
+
+### Build options (release readiness)
+
+- **Preview APK** (internal testing): configured in `eas.json` under `preview` profile
+- **Production AAB** (Play Store): use EAS production profile and submit to Google Play
+
+Typical production command:
+
+```bash
+eas build --platform android --profile production
+```
+
+Then upload the generated **AAB** to Google Play Console (Internal Testing → Closed Testing → Production).
+
 ## 5) Minimum environment variables
 
 Copy and fill:
